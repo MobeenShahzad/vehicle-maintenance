@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "748109819180",
+    "project_id": "vehiman-32321",
+    "storage_bucket": "vehiman-32321.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748109819180:android:d3a56df844d53a60cf1089",
+        "android_client_info": {
+          "package_name": "com.example.vehiclemaintenance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748109819180-irbtg01s52je9avl63af9ch51oifbsca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaIWw9dA3--GrI35uX7SsVGc_bOkgInw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748109819180-irbtg01s52je9avl63af9ch51oifbsca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

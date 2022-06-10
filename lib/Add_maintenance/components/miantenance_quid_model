@@ -1,0 +1,10 @@
+// import 'package:flutter/widgets.dart';
+
+// class Settings {
+
+//   String qid;
+
+//   Settings(
+//       {
+//       required this.qid});
+// }
