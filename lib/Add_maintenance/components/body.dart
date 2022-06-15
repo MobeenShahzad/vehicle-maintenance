@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
@@ -19,6 +22,7 @@ import 'package:vehiclemaintenance/providers/auth_provider.dart';
 import 'package:vehiclemaintenance/providers/vehicleprovider.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:vehiclemaintenance/reminder.dart';
+import 'package:scheduled_timer/scheduled_timer.dart';
 
 class Body extends StatefulWidget {
   QueryDocumentSnapshot<Object?> vehicle;
@@ -51,6 +55,7 @@ class _BodyState extends State<Body> {
   final _SerialNumberController = TextEditingController();
   final _TolbydayController = TextEditingController();
   final _DescController = TextEditingController();
+  final _TolerenceByKilometer = TextEditingController();
 
   final List<String> items = [
     'Brake Oil',
@@ -323,7 +328,7 @@ class _BodyState extends State<Body> {
                               height: ScreenUtils.screenheight(context) * 0.037,
                               child: Center(
                                 child: Text(
-                                  "Select Date",
+                                  newTime,
                                   style: GoogleFonts.poiretOne(
                                     textStyle: TextStyle(
                                         color: Color(0xffc8c9cd),
@@ -531,6 +536,68 @@ class _BodyState extends State<Body> {
                           textAlign: TextAlign.center,
                           controller: _TolbydayController,
                           maxLength: 3,
+                          maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                          keyboardType: TextInputType.number,
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return "Empty field";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(bottom: 5.0),
+                              border: InputBorder.none,
+                              //  hintText: "1-30",
+                              hintStyle: GoogleFonts.poiretOne(
+                                color: Color.fromARGB(255, 174, 169, 169),
+                                fontWeight: FontWeight.w700,
+                                fontSize:
+                                    ScreenUtils.screenheight(context) * 0.015,
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(
+                          "Tolerence By Km",
+                          style: GoogleFonts.poiretOne(
+                            textStyle: TextStyle(
+                                color: Color(0xffc8c9cd),
+                                fontSize:
+                                    ScreenUtils.screenheight(context) * 0.016,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: const Color(0xff393d4d),
+                            boxShadow: const <BoxShadow>[
+                              BoxShadow(
+                                spreadRadius: 0,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                                color: Color.fromARGB(255, 41, 159, 169),
+                              )
+                            ]),
+                        width: ScreenUtils.screenwidth(context) * 0.4,
+                        height: ScreenUtils.screenheight(context) * 0.037,
+                        child: TextFormField(
+                          style: TextStyle(
+                              fontSize:
+                                  ScreenUtils.screenheight(context) * 0.017,
+                              color: Colors.white),
+                          textAlign: TextAlign.center,
+                          controller: _TolerenceByKilometer,
+                          maxLength: 6,
                           maxLengthEnforcement: MaxLengthEnforcement.enforced,
                           keyboardType: TextInputType.number,
                           validator: (val) {
@@ -798,6 +865,8 @@ class _BodyState extends State<Body> {
   }
 
   Future<DateTime> _selectDate(BuildContext context) async {
+    DateTime a;
+    //int a = 5;
     final date = await showDatePicker(
         context: context,
         firstDate: DateTime(1900),
@@ -825,10 +894,23 @@ class _BodyState extends State<Body> {
         // title: widget.title,
         // body: widget.content,
         // time: fullDate);
+        //           switch (dropdownselectedMaintenance) {
+        //   case 'Brake Oil':
+        //     // do something
+        //     break;
+        //      case 'Gear Oil':
+        //     // do something
+        //     break;
+        //      case 'Radiator Water':
+        //     // do something
+        //     break;
+
+        // }
       }
       return DateTimeField.combine(date, time);
     } else {
       return selectedDate;
+      print(selectedDate);
     }
   }
 
@@ -965,10 +1047,22 @@ class _BodyState extends State<Body> {
                       Container(
                           padding: EdgeInsets.only(left: 40, top: 10),
                           width: 200,
+                          child: SmallText(text: 'Tolerence by Km')),
+                      Container(
+                          padding: EdgeInsets.only(left: 30, top: 10),
+                          width: 120,
+                          child: SmallText(text: _TolerenceByKilometer.text)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                          padding: EdgeInsets.only(left: 40, top: 10),
+                          width: 200,
                           child: SmallText(text: 'Maintenance Date')),
                       Container(
                           padding: EdgeInsets.only(left: 30, top: 10),
-                          width: 100,
+                          width: 120,
                           child: SmallText(text: newTime)),
                     ],
                   ),
@@ -997,12 +1091,387 @@ class _BodyState extends State<Body> {
 
                             //   _showDialog(context);
                           }
-                          await _notificationService.scheduleNotifications(
-                            id: 1,
-                            title: "Maintenance",
-                            body: "It's time to maintenance",
-                            time: fullDate,
-                          );
+                          // await _notificationService.scheduleNotifications(
+                          //   id: 1,
+                          //   title: "Maintenance",
+                          //   body: "It's time to maintenance 1",
+                          //   time: fullDate,
+                          // );
+
+                          // await _notificationService.scheduleNotifications(
+                          //   id: 1,
+                          //   title: "Maintenance",
+                          //   body: "It's time to maintenance 1",
+                          //   time: fullDate,
+                          // );
+
+                          print(dropdownselectedMaintenance);
+                          switch (dropdownselectedMaintenance) {
+                            case 'Brake Oil':
+                              fullDate.add(Duration(
+                                days: 14,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Brake Oil Maintenance",
+                                body: "It's time to Check Brake Oil",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Brake Oil Maintenance",
+                                body: "It's time to Check Brake Oil",
+                                time: fullDate.add(
+                                  Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  ),
+                                ),
+                              );
+                              // do something
+                              break;
+
+                            case 'Gear Oil':
+                              fullDate.add(Duration(
+                                days: 15,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Gear Oil Maintenance",
+                                body: "It's time to Check Gear Oil",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Gear Oil Maintenance",
+                                body: "It's time to Check Gear Oil",
+                                time: fullDate.add(
+                                  Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  ),
+                                ),
+                              );
+                              // do something
+
+                              break;
+                            case 'Radiator Water':
+                              fullDate.add(Duration(
+                                days: 2,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Radiator Water Maintenance",
+                                body: "It's time to Check Radiator Water",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Radiator Water Maintenance",
+                                body: "It's time to Check Radiator Water",
+                                time: fullDate.add(
+                                  Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  ),
+                                ),
+                              );
+                              // do something
+                              break;
+
+                            case 'Battery Checking':
+                              await _notificationService.weeklyNotifications(
+                                id: 1,
+                                title: "Water Level Maintenance",
+                                body: "It's time to check water level",
+                                time: fullDate,
+                              );
+                              print("reminder 1");
+
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Water Level Maintenance",
+                                body: "It's time to check water level",
+                                time: fullDate.day +
+                                    int.parse(_TolbydayController.text),
+                              );
+                              // fullDate.add(Duration(
+                              //   days: 7,
+                              // ));
+                              // await _notificationService.scheduleNotifications(
+                              //   id: 1,
+                              //   title: "Battery Maintenance ",
+                              //   body: "It's time to Check Battery",
+                              //   time: fullDate,
+                              // );
+                              // await _notificationService.scheduleNotifications(
+                              //   id: 2,
+                              //   title: "Battery Maintenance ",
+                              //   body: "It's time to Check Battery",
+                              //   time: fullDate.add(
+                              //     Duration(
+                              //       days: fullDate.day +
+                              //           int.parse(_TolbydayController.text),
+                              //     ),
+                              //   ),
+                              // );
+                              // do something
+                              break;
+
+                            case 'Ev Checking':
+                              fullDate.add(Duration(
+                                days: 30,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Ev Maintenance",
+                                body: "It's time to Check EV",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Ev Maintenance",
+                                body: "It's time to Check EV",
+                                time: fullDate.add(
+                                  Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  ),
+                                ),
+                              );
+                              // do something
+                              break;
+
+                            case 'Engine Tuning':
+                              fullDate.add(Duration(
+                                days: 30,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Engine Tunning Maintenance",
+                                body: "It's time to tune your Engine",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Engine Tunning Maintenance",
+                                body: "It's time to tune your Engine",
+                                time: fullDate.add(
+                                  Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  ),
+                                ),
+                              );
+                              // do something
+                              break;
+
+                            case 'Air Filter Maintenance':
+                              fullDate.add(Duration(
+                                days: 30,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Air Filter Maintenance",
+                                body: "It's time to Change Air Filter",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Air Filter Maintenance",
+                                body: "It's time to Change Air Filter",
+                                time: fullDate.add(
+                                  Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  ),
+                                ),
+                              );
+                              // do something
+                              break;
+                            case 'Ac Filter Maintenance':
+                              fullDate.add(Duration(
+                                days: 90,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Ac Filter Maintenance",
+                                body: "It's time to Chnage AC Filter",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Ac Filter Maintenance",
+                                body: "It's time to Chnage AC Filter",
+                                time: fullDate.add(
+                                  Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  ),
+                                ),
+                              );
+                              // do something
+                              break;
+
+                            case 'Tire Air Pressure':
+                              fullDate.add(Duration(
+                                days: 7,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Tire Air Pressure Maintenance",
+                                body: "It's time to check Tire Air Pressure",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                  id: 2,
+                                  title: "Tire Air Pressure Maintenance",
+                                  body: "It's time to check Tire Air Pressure",
+                                  time: fullDate.add(Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  )));
+
+                              // do something
+                              break;
+
+                            case 'Washer Fluid':
+                              fullDate.add(Duration(
+                                days: 15,
+                              ));
+                              await _notificationService.scheduleNotifications(
+                                id: 1,
+                                title: "Washer Fluid Maintenance",
+                                body: "It's time to Check Washer Fluid",
+                                time: fullDate,
+                              );
+                              await _notificationService.scheduleNotifications(
+                                  id: 2,
+                                  title: "Washer Fluid Maintenance",
+                                  body: "It's time to Check Washer Fluid",
+                                  time: fullDate.add(Duration(
+                                    days: fullDate.day +
+                                        int.parse(_TolbydayController.text),
+                                  )));
+                              // do something
+                              break;
+                            case 'Water Level':
+                              print(dropdownselectedMaintenance);
+                              // fullDate.add(Duration(
+                              //   days: 2,
+                              // ));
+                              await _notificationService.dailyNotifications(
+                                id: 1,
+                                title: "Water Level Maintenance",
+                                body: "It's time to check water level",
+                                time: fullDate,
+                              );
+                              print("reminder 1");
+
+                              await _notificationService.scheduleNotifications(
+                                id: 2,
+                                title: "Water Level Maintenance",
+                                body: "It's time to check water level",
+                                time: fullDate.day +
+                                    int.parse(_TolbydayController.text),
+                              );
+
+                              // do something else
+                              // Timer.periodic(
+                              //   Duration(seconds: 1),
+                              //   await _notificationService.dailyNotifications(
+                              //     id: Random(),
+                              //     title: "Water Level Maintenance",
+                              //     body: "It's time to check water level",
+                              //     time: fullDate,
+                              //   ),
+                              // );
+
+                              //
+
+                              // Timer timer = Timer.periodic(
+                              //     Duration(seconds: 1),
+                              //     (time) async => await _notificationService
+                              //         .dailyNotifications(
+                              //             id: 2,
+                              //             title: "Water Level Maintenance",
+                              //             body:
+                              //                 "It's time to check water level",
+                              //             time: fullDate
+                              //             //  fullDate.add(
+                              //             //   Duration(
+                              //             //     days: fullDate.day +
+                              //             //         int.parse(_TolbydayController.text),
+                              //             //   ),
+                              //             // ),
+                              //             ));
+
+                              // await _notificationService.dailyNotifications(
+                              //     id: 2,
+                              //     title: "Water Level Maintenance",
+                              //     body: "It's time to check water level",
+                              //     time: fullDate
+                              //     //  fullDate.add(
+                              //     //   Duration(
+                              //     //     days: fullDate.day +
+                              //     //         int.parse(_TolbydayController.text),
+                              //     //   ),
+                              //     // ),
+                              //     );
+                              // print("reminder 2");
+
+                              // _notification2() {
+                              //   return FutureBuilder(
+                              //     future: LongTimeNoNotification.findBy(
+                              //         'notification_2'),
+                              //     builder: (context,
+                              //         AsyncSnapshot<LongTimeNoNotification?>
+                              //             snapshot) {
+                              //       if (snapshot.data == null ||
+                              //           snapshot.data!.shouldNotify()) {
+                              //         return Card(
+                              //           child: ListTile(
+                              //             title: const Text('Notification2'),
+                              //             subtitle: const Text(
+                              //                 'Display again in 7 days.'),
+                              //             trailing: IconButton(
+                              //               icon: const Icon(Icons.clear),
+                              //               onPressed: () {
+                              //                 setState(() {
+                              //                   LongTimeNoNotification
+                              //                       .setDuration(
+                              //                           id: 'notification_2',
+                              //                           duration:
+                              //                               const Duration(
+                              //                                   seconds: 10));
+                              //                 });
+                              //               },
+                              //             ),
+                              //           ),
+                              //         );
+                              //       } else {
+                              //         return Container();
+                              //       }
+                              //     },
+                              //   );
+                              // }
+
+                              break;
+                          }
+                          print(_TolbydayController);
+
+                          // if (dropdownselectedMaintenance == 'Water Level') {
+                          //   await _notificationService.scheduleNotifications(
+                          //       id: 1,
+                          //       title: "Water Level Maintenance",
+                          //       body: "It's time to check water level",
+                          //       time: fullDate.add(Duration(
+                          //         days: fullDate.day +
+                          //             int.parse(_TolbydayController.text),
+                          //       )));
+                          // } else {}
+
+                          //TODO
 
                           _showDialogmini(context);
                           Provider.of<HomeNotifier>(context, listen: false)
@@ -1014,6 +1483,7 @@ class _BodyState extends State<Body> {
                             maintenacedate: newTime,
                             serialnumber: _SerialNumberController.text,
                             tolbyday: _TolbydayController.text,
+                            tolbykm: _TolerenceByKilometer.text,
                             desc: _DescController.text,
 
                             maintenance_uniquie_id:

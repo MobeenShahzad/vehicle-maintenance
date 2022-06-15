@@ -65,6 +65,8 @@ dependencies:
   timezone: ^0.8.0
   datetime_picker_formfield: ^2.0.0
   get: ^4.6.5
+  scheduled_timer: ^2.0.1
+  flutter_form_field_validator: ^1.0.0
   
   
 

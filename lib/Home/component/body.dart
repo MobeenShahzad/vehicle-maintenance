@@ -383,7 +383,7 @@ class _BodyState extends State<Body> {
                                                 height:
                                                     ScreenUtils.screenheight(
                                                             context) *
-                                                        0.09,
+                                                        0.07,
                                                 child: Image.network(
                                                   //  "assets/car.png",
                                                   vehicle["image"],
@@ -406,7 +406,7 @@ class _BodyState extends State<Body> {
                                                 ),
                                               ),
                                               Text(
-                                                'Miant by Km:',
+                                                'Miant by Km: ${vehicle['metervalue']}',
                                                 style: GoogleFonts.poiretOne(
                                                   textStyle: TextStyle(
                                                       color: AppColors

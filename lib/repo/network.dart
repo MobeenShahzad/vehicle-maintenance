@@ -333,6 +333,7 @@ class Network {
       var randomString = getRandomString(20); // 5GKjb
       maintenance.id = randomString;
       maintenance.status = "incomplete";
+      maintenance.trip = "0";
       statusq = maintenance.status;
       await firestore
           .collection("maintenance")
@@ -346,7 +347,7 @@ class Network {
               title: Text("Limit Full"),
               content: Text("No More Maintenace can be added"),
               actions: [
-                FlatButton(
+                ElevatedButton(
                   child: Text("Ok"),
                   onPressed: () {
                     Navigator.of(context).pop();

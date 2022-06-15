@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -75,6 +76,75 @@ class NotificationService {
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
       );
+
+      sendNotification(id, title, body, time, token);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+//  NotificationService.setDuration(
+//                               id: 'notification_2',
+//
+//
+  //Timer timer = Timer.periodic(Duration(seconds: 1), (time) => sendNotification(id, title, body,token));                           duration: const Duration(seconds: 10));
+
+  dailyNotifications({id, title, body, time, token}) async {
+    try {
+      await flutterLocalNotificationsPlugin.periodicallyShow(
+        id,
+        title,
+        body,
+        RepeatInterval.daily,
+        const NotificationDetails(
+            android: AndroidNotificationDetails(
+          'your channel id', 'your channel name',
+          channelDescription: 'your channel description',
+          // sound:
+        )),
+        androidAllowWhileIdle: true,
+      );
+      // Time timer = Timer.periodic(Duration(days: 2), (time)=>)
+      tz.TZDateTime _nextInstanceOfTenAM(time) {
+        final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+        tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, time);
+        if (scheduledDate.isBefore(now)) {
+          scheduledDate = scheduledDate.add(const Duration(seconds: 1));
+        }
+        return scheduledDate;
+      }
+
+      sendNotification(id, title, body, time, token);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  weeklyNotifications({id, title, body, time, token}) async {
+    try {
+      await flutterLocalNotificationsPlugin.periodicallyShow(
+        id,
+        title,
+        body,
+        RepeatInterval.weekly,
+        const NotificationDetails(
+            android: AndroidNotificationDetails(
+          'your channel id', 'your channel name',
+          channelDescription: 'your channel description',
+          // sound:
+        )),
+        androidAllowWhileIdle: true,
+      );
+      // Time timer = Timer.periodic(Duration(days: 2), (time)=>)
+      tz.TZDateTime _nextInstanceOfTenAM(time) {
+        final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+        tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, time);
+        if (scheduledDate.isBefore(now)) {
+          scheduledDate = scheduledDate.add(const Duration(seconds: 1));
+        }
+        return scheduledDate;
+      }
+
       sendNotification(id, title, body, time, token);
     } catch (e) {
       print(e);

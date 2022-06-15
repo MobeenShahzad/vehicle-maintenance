@@ -84,7 +84,7 @@ class AuthProvider with ChangeNotifier {
               title: Text("Invalid Email or Password"),
               content: Text("Enter a Correct Email or Password"),
               actions: [
-                FlatButton(
+                ElevatedButton(
                   child: Text("Ok"),
                   onPressed: () {
                     Navigator.of(context).pop();

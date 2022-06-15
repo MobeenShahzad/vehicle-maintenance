@@ -42,7 +42,7 @@ class LastViewVehiCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Miant by Date:',
+                      'Miant by Date:    ',
                       style: GoogleFonts.poiretOne(
                         textStyle: TextStyle(
                             color: AppColors.ktextColorWhite,
@@ -51,7 +51,7 @@ class LastViewVehiCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Miant by Km:',
+                      'Miant by Km:   ${vehicle['metervalue']}',
                       style: GoogleFonts.poiretOne(
                         textStyle: TextStyle(
                             color: AppColors.ktextColorWhite,
@@ -71,7 +71,7 @@ class LastViewVehiCard extends StatelessWidget {
                         },
                         child: Container(
                           height: ScreenUtils.screenheight(context) * 0.024,
-                          width: ScreenUtils.screenwidth(context) * 0.17,
+                          width: ScreenUtils.screenwidth(context) * 0.20,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30.0),
                             color: Color(0xff4a4f60),

@@ -323,7 +323,7 @@ class _BodyState extends State<Body> {
                               height: ScreenUtils.screenheight(context) * 0.037,
                               child: Center(
                                 child: Text(
-                                  "Select Date",
+                                  newTime,
                                   style: GoogleFonts.poiretOne(
                                     textStyle: TextStyle(
                                         color: Color(0xffc8c9cd),

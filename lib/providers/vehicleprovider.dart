@@ -49,6 +49,7 @@ class HomeNotifier with ChangeNotifier {
     required String desc,
     required String maintenance_uniquie_id,
     required String uid,
+    required String tolbykm,
   }) async {
     MaintenanceModel maintenance = MaintenanceModel(
         miantenancetype: miantenancetype,
@@ -56,11 +57,13 @@ class HomeNotifier with ChangeNotifier {
         maintenacedate: maintenacedate,
         serialnumber: serialnumber,
         tolbyday: tolbyday,
+        tolbykm: tolbykm,
         desc: desc,
         maintenance_uniquie_id: maintenance_uniquie_id,
         uid: uid,
         id: "",
-        status: "");
+        status: "",
+        trip: "0");
 
     await _network.uploadMaintenance(context, maintenance);
   }

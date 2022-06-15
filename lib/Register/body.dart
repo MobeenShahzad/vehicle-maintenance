@@ -66,12 +66,19 @@ class Body extends StatelessWidget {
                   SizedBox(
                     height: ScreenUtils.screenheight(context) * 0.070,
                     width: ScreenUtils.screenwidth(context) * 0.6,
-                    child: TextField(
+                    child: TextFormField(
                       textAlign: TextAlign.start,
                       controller: nameController,
                       keyboardType: TextInputType.text,
                       maxLength: 20,
-                      maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return "Please Enter Name";
+                        }
+                        return null;
+                      },
+
+                      // maxLengthEnforcement: MaxLengthEnforcement.enforced,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -158,10 +165,16 @@ class Body extends StatelessWidget {
                     SizedBox(
                       height: ScreenUtils.screenheight(context) * 0.07,
                       width: ScreenUtils.screenwidth(context) * 0.6,
-                      child: TextField(
+                      child: TextFormField(
                         textAlign: TextAlign.start,
                         controller: phone,
                         maxLength: 13,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "Please Enter Phone Number";
+                          }
+                          return null;
+                        },
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -204,11 +217,17 @@ class Body extends StatelessWidget {
                     SizedBox(
                       height: ScreenUtils.screenheight(context) * 0.07,
                       width: ScreenUtils.screenwidth(context) * 0.6,
-                      child: TextField(
+                      child: TextFormField(
                         textAlign: TextAlign.start,
                         controller: username,
                         keyboardType: TextInputType.text,
                         maxLength: 20,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "Please Enter UserName";
+                          }
+                          return null;
+                        },
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -250,9 +269,15 @@ class Body extends StatelessWidget {
                     SizedBox(
                       height: ScreenUtils.screenheight(context) * 0.045,
                       width: ScreenUtils.screenwidth(context) * 0.6,
-                      child: TextField(
+                      child: TextFormField(
                         textAlign: TextAlign.start,
                         controller: password,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "Please Enter Password";
+                          }
+                          return null;
+                        },
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
