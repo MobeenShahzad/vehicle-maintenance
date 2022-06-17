@@ -61,22 +61,6 @@ class Background extends StatelessWidget {
                       width: ScreenUtils.screenheight(context) * 0.40,
                     ),
                   ),
-                  // Align(
-                  //   alignment: Alignment.topRight,
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.only(
-                  //           topLeft: Radius.circular(50),
-                  //           bottomLeft: Radius.circular(50)),
-                  //       color: Color(0xff393d4d),
-                  //     ),
-                  //     margin: EdgeInsets.only(top: 60.0),
-                  //     child: Image.asset(
-                  //       'assets/car.png',
-                  //       width: 250,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

@@ -9,6 +9,7 @@ import 'package:vehiclemaintenance/Maintenance/maintenance.dart';
 import 'package:vehiclemaintenance/ScreenUtils/app_colors.dart';
 import 'package:vehiclemaintenance/ScreenUtils/screenutils.dart';
 import 'package:vehiclemaintenance/addVehical/AddNewVehical.dart';
+import 'package:vehiclemaintenance/globals.dart';
 import 'package:vehiclemaintenance/resetpassword/resetpassword.dart';
 import 'package:vehiclemaintenance/updatemeter/components/background.dart';
 
@@ -20,33 +21,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int _count = 0;
   final _CounterController = TextEditingController();
-
-  // int length = 0;
-  // _onchange(value) {
-  //   setState(() {
-  //     length = value.length;
-  //   });
-  //   if (length == 6) {
-  //     showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title:
-  //               new Text('Sorry, You have Reached the Maximum input limit...'),
-  //           actions: <Widget>[
-  //             Butt(
-  //               child: new Text("OK"),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop();
-  //               },
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     );
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     TextEditingController forgetemailController = TextEditingController();
@@ -87,7 +61,6 @@ class _BodyState extends State<Body> {
               borderRadius: BorderRadius.circular(8.0),
               color: Color.fromARGB(255, 255, 255, 255),
             ),
-
             child: NumberInputPrefabbed.squaredButtons(
               // max: 100000,
               //onChanged: "",
@@ -97,100 +70,10 @@ class _BodyState extends State<Body> {
               incIcon: Icons.add,
               decIcon: Icons.remove,
             ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       GestureDetector(
-            //           child: Padding(
-            //             padding: const EdgeInsets.all(8.0),
-            //             child: Container(
-            //                 height: ScreenUtils.screenheight(context) * 0.025,
-            //                 width: ScreenUtils.screenwidth(context) * 0.05,
-            //                 decoration: BoxDecoration(
-            //                     borderRadius: BorderRadius.circular(5.0),
-            //                     border: Border.all(
-            //                       color: AppColors.kgreyLightColor,
-            //                     )),
-            //                 child: Center(
-            //                     child: Icon(
-            //                   Icons.remove,
-            //                   size: ScreenUtils.screenheight(context) * 0.02,
-            //                 ))),
-            //           ),
-            //           onTap: () {
-            //             setState(() {
-            //               _count--;
-            //             });
-            //             //decrementcount,
-            //           }),
-            //       Container(
-            //         width: ScreenUtils.screenwidth(context) * 0.34,
-            //         child: TextFormField(
-            //           style: TextStyle(
-            //               fontSize: ScreenUtils.screenheight(context) * 0.023,
-            //               color: Color.fromARGB(255, 11, 0, 0)),
-            //           textAlign: TextAlign.center,
-            //           controller: _CounterController,
-            //           maxLength: 6,
-            //           maxLengthEnforcement: MaxLengthEnforcement.enforced,
-            //           keyboardType: TextInputType.number,
-            //           validator: (val) {
-            //             if (val!.isEmpty) {
-            //               return "Empty field";
-            //             }
-            //             return null;
-            //           },
-            //           decoration: InputDecoration(
-            //               errorStyle: GoogleFonts.poiretOne(
-            //                 color: Color.fromARGB(255, 253, 4, 4),
-            //                 fontWeight: FontWeight.w700,
-            //                 fontSize: ScreenUtils.screenheight(context) * 0.014,
-            //               ),
-            //               contentPadding: EdgeInsets.only(bottom: 5.0),
-            //               border: InputBorder.none,
-            //               //  hintText: "VehicleNumber",
-            //               hintStyle: GoogleFonts.poiretOne(
-            //                 color: Color.fromARGB(255, 174, 169, 169),
-            //                 fontWeight: FontWeight.w700,
-            //                 fontSize: ScreenUtils.screenheight(context) * 0.015,
-            //               )),
-            //         ),
-            //       ),
-            //       GestureDetector(
-            //           child: Padding(
-            //             padding: const EdgeInsets.all(8.0),
-            //             child: Container(
-            //                 height: ScreenUtils.screenheight(context) * 0.025,
-            //                 width: ScreenUtils.screenwidth(context) * 0.05,
-            //                 decoration: BoxDecoration(
-            //                     borderRadius: BorderRadius.circular(5.0),
-            //                     border: Border.all(
-            //                       color: AppColors.kgreyLightColor,
-            //                     )),
-            //                 child: Center(
-            //                     child: Icon(
-            //                   Icons.add,
-            //                   size: ScreenUtils.screenheight(context) * 0.02,
-            //                 ))),
-            //           ),
-            //           onTap: () {
-            //             setState(() {
-            //               _count++;
-            //             });
-            //           }
-            //           //incrementcount,
-            //           ),
-            //     ],
-            //   ),
           ),
           Center(
             child: GestureDetector(
               onTap: () async {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => Maintenance(),
-                //     ));
                 QuerySnapshot querySnapshot = await FirebaseFirestore.instance
                     .collection("maintenance")
                     .get();
@@ -199,12 +82,18 @@ class _BodyState extends State<Body> {
                   int kmprev = int.parse(querySnapshot.docs[i]["km"]);
                   int tolbykm_prev =
                       int.parse(querySnapshot.docs[i]["tolbykm"]);
+
+                  int trip_val = int.parse(querySnapshot.docs[i]["trip"]);
+
                   // print(kmprev);
                   int contp = int.parse(_CounterController.text);
                   int kmf = kmprev + contp + _count;
                   int update_trip = 0;
                   update_trip++;
-
+                  print("this is data base trip value");
+                  print(trip_val);
+                  int newtripvalue = trip_val + update_trip;
+                  print(newtripvalue);
                   int update_tolbykm = tolbykm_prev + contp + _count;
                   print(a);
                   FirebaseFirestore.instance
@@ -212,7 +101,7 @@ class _BodyState extends State<Body> {
                       .doc(a)
                       .update({
                     "km": kmf.toString(),
-                    "trip": update_trip.toString(),
+                    "trip": newtripvalue.toString(),
                     "tolbykm": update_tolbykm.toString(), //+ kmprev,
                   });
                 }
@@ -260,6 +149,7 @@ class _BodyState extends State<Body> {
                                   )),
                               GestureDetector(
                                 onTap: () {
+                                  Navigator.of(context).pop();
                                   Navigator.of(context).pop();
                                 },
                                 child: Padding(
@@ -322,16 +212,4 @@ class _BodyState extends State<Body> {
       )),
     );
   }
-
-//   void incrementcount() {
-//     setState(() {
-//       _count++;
-//     });
-//   }
-
-//   void decrementcount() {
-//     setState(() {
-//       _count--;
-//     });
-//   }
 }

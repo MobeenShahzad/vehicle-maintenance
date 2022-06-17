@@ -11,12 +11,9 @@ import 'package:vehiclemaintenance/ScreenUtils/app_colors.dart';
 import 'package:vehiclemaintenance/ScreenUtils/screenutils.dart';
 import 'package:vehiclemaintenance/Warnings.dart/Warnings.dart';
 import 'package:vehiclemaintenance/addVehical/AddNewVehical.dart';
-import 'package:vehiclemaintenance/components/addVehiCard.dart';
 import 'package:vehiclemaintenance/components/lastviewitem.dart';
-import 'package:vehiclemaintenance/guidelines.dart/guidelines.dart';
-import 'package:vehiclemaintenance/models/app_vehicle.dart';
+import 'package:vehiclemaintenance/globals.dart';
 import 'package:vehiclemaintenance/providers/auth_provider.dart';
-import 'package:vehiclemaintenance/providers/vehicleprovider.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -43,6 +40,10 @@ class _BodyState extends State<Body> {
     bool checkBoxBooleanValueVariable = false;
     var dropdownselectedMaintenance;
     final firebaseUser = firebaseAuth.currentUser;
+
+    String home_date = "";
+    String home_km = "";
+
     return Background(
       child: Container(
         //  color: Colors.amber,
@@ -54,19 +55,6 @@ class _BodyState extends State<Body> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 0.0, top: 40),
-                    //   child: ElevatedButton(
-                    //     child: Text("!"),
-                    //     style: ButtonStyle(
-                    //         backgroundColor: MaterialStateProperty.all(Colors.red),
-                    //         fixedSize: MaterialStateProperty.all(Size(30, 30))),
-                    //     onPressed: () {
-                    //       Provider.of<AuthProvider>(context, listen: false)
-                    //           .signOut(context);
-                    //     },
-                    //   ),
-                    // ),
                     Container(
                       margin: const EdgeInsets.only(top: 40.0, right: 70),
                       decoration: BoxDecoration(
@@ -172,43 +160,8 @@ class _BodyState extends State<Body> {
                         ),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 00.0, top: 40),
-                    //   child: GestureDetector(
-                    //     onTap: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //             builder: (context) => const Guidelines(),
-                    //           ));
-                    //     },
-                    //     child: Container(
-                    //       height: ScreenUtils.screenheight(context) * 0.055,
-                    //       width: ScreenUtils.screenwidth(context) * 0.15,
-                    //       margin: const EdgeInsets.all(5.0),
-                    //       decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(15.0),
-                    //           color: const Color(0xff393d4d),
-                    //           boxShadow: const <BoxShadow>[
-                    //             BoxShadow(
-                    //               spreadRadius: 0,
-                    //               blurRadius: 6,
-                    //               offset: Offset(0, 4),
-                    //               color: Color.fromARGB(255, 41, 159, 169),
-                    //             )
-                    //           ]),
-                    //       child: Center(
-                    //         child: Icon(
-                    //           Icons.assignment_late,
-                    //           color: Color.fromARGB(255, 187, 186, 186),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
-
                 StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection("vehicles")
@@ -216,27 +169,30 @@ class _BodyState extends State<Body> {
                         .orderBy('id', descending: true)
                         .snapshots(),
                     builder: (context, snapshot) {
-                      // var qwedoc = FirebaseFirestore.instance
-                      //     .collection("vehicles")
-                      //     .doc()
-                      //     .get();
-
-                      // print('This is vehicle doc  ${qwedoc}');
-
                       if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                         return const Center(child: Text("No Data")
                             // CircularProgressIndicator(),
                             );
                       }
+
                       QueryDocumentSnapshot<Object?> vehicle =
                           snapshot.data!.docs[0];
                       vehicle['maintenance_uniquie_id'];
+
+                      if (maintenance_unique_id ==
+                          vehicle['maintenance_uniquie_id']) {
+                        home_date = maintenance_date;
+                        home_km = maintenance_km;
+                      } else {}
 
                       return GestureDetector(
                           child: Center(
                             child: Padding(
                                 padding: EdgeInsets.only(top: 20.0),
-                                child: LastViewVehiCard(vehicle: vehicle)),
+                                child: LastViewVehiCard(
+                                    vehicle: vehicle,
+                                    home_date: home_date,
+                                    home_km: home_km)),
                           ),
                           onTap: () {
                             // print(Vehicleid);
@@ -249,12 +205,6 @@ class _BodyState extends State<Body> {
                             var newid = DateTime.now()
                                 .millisecondsSinceEpoch
                                 .toString();
-                            //     var collection = FirebaseFirestore.instance.collection('vehicles');
-                            //     collection
-
-                            //     //.where()
-                            //     .doc('id') // <-- Doc ID where data should be updated.
-                            //      .update('newid');
                             print("ffffff ${newid}");
                             var doc_id = vehicle.id;
                             print(doc_id);
@@ -268,47 +218,7 @@ class _BodyState extends State<Body> {
                                 .then((_) => print('Success'))
                                 .catchError((error) => print('Failed: $error'));
                           });
-
-                      //return Text("iiii");
-                      // children:
-                      // List.generate(snapshot.data!.docs.length,
-                      //     // (item) {
-
-                      //     (index) {
-                      //   DocumentSnapshot vehicles = snapshot.data!.docs[index];
-
-                      // });
                     }),
-                //  color: Colors.amber,
-
-                // Padding(
-                //   padding: const EdgeInsets.only(
-                //       top: 0.0, bottom: 30, right: 40, left: 40),
-                //   child: GridView.count(
-                //     crossAxisCount: 2,
-                //     crossAxisSpacing: 15.0,
-                //     mainAxisSpacing: 15.0,
-                //     childAspectRatio: 0.7 / 0.7,
-                //     shrinkWrap: true,
-                //     physics: ScrollPhysics(),
-                //     children: List.generate(
-                //       4,
-                //       (item) {
-                //         return AddVehiCard();
-                //       },
-                //     ),
-                //   ),
-                // ),
-                // getproductdata(),
-                //  getproductdatastream(),
-
-                //                     FirebaseFirestore.instance.collection('allUsers').snapshots().listen((event) {
-                //     for (var element in event.docChanges) {
-                //         final modelData = UserModel.fromJson(element.doc.data());
-                //         // Do anything with your user. For example adding to list.
-                //     }
-                // });
-
                 StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance
                         .collection("vehicles")
@@ -333,10 +243,6 @@ class _BodyState extends State<Body> {
                             childAspectRatio: 0.7 / 0.7,
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
-
-                            //itemCount: snapshot.data!.docs.length,
-                            //  itemBuilder: (context,index){
-                            //    DocumentSnapshot firtsAid=snapshot.data!.docs[index];
                             children:
                                 List.generate(snapshot.data!.docs.length - 1,
                                     // (item) {
@@ -344,6 +250,12 @@ class _BodyState extends State<Body> {
                                     (index) {
                               QueryDocumentSnapshot<Object?> vehicle =
                                   snapshot.data!.docs[index + 1];
+
+                              if (vehicle['maintenance_uniquie_id'] ==
+                                  maintenance_unique_id) {
+                                home_date = maintenance_date;
+                                home_km = maintenance_km;
+                              } else {}
 
                               // if (index == 0) {
                               return GestureDetector(
@@ -392,7 +304,7 @@ class _BodyState extends State<Body> {
                                                 ),
                                               ),
                                               Text(
-                                                'Miant by Date:',
+                                                'Maker :${vehicle["maker"]}',
                                                 style: GoogleFonts.poiretOne(
                                                   textStyle: TextStyle(
                                                       color: AppColors
@@ -406,7 +318,7 @@ class _BodyState extends State<Body> {
                                                 ),
                                               ),
                                               Text(
-                                                'Miant by Km: ${vehicle['metervalue']}',
+                                                'Generation: ${vehicle["model"]}',
                                                 style: GoogleFonts.poiretOne(
                                                   textStyle: TextStyle(
                                                       color: AppColors
@@ -423,13 +335,7 @@ class _BodyState extends State<Body> {
                                                 padding: const EdgeInsets.only(
                                                     top: 3.0),
                                                 child: GestureDetector(
-                                                  onTap: () {
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //       builder: (context) => Home(),
-                                                    //     ));
-                                                  },
+                                                  onTap: () {},
                                                   child: Container(
                                                     height: ScreenUtils
                                                             .screenheight(
@@ -482,12 +388,6 @@ class _BodyState extends State<Body> {
                                     var newid = DateTime.now()
                                         .millisecondsSinceEpoch
                                         .toString();
-                                    //     var collection = FirebaseFirestore.instance.collection('vehicles');
-                                    //     collection
-
-                                    //     //.where()
-                                    //     .doc('id') // <-- Doc ID where data should be updated.
-                                    //      .update('newid');
                                     print("Gride item id new id");
                                     print(newid);
                                     var doc_id = vehicle.id;
@@ -551,151 +451,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-// checking this function
-// class getproductdata extends StatefulWidget {
-//   const getproductdata({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   State<getproductdata> createState() => _getproductdataState();
-// }
-
-// class _getproductdataState extends State<getproductdata> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<List<Vehicle>>(
-//         future: Provider.of<HomeNotifier>(context, listen: false).getVehicles(),
-//         builder: (context, snapshot) {
-//           switch (snapshot.connectionState) {
-//             case ConnectionState.none:
-//               return const Center(child: Text('No internet connection'));
-
-//               break;
-//             case ConnectionState.waiting:
-//               return const Center(child: CircularProgressIndicator());
-//               break;
-//             case ConnectionState.active:
-//               break;
-//             case ConnectionState.done:
-//               if (snapshot.hasData) {
-//                 final data = snapshot.data!;
-//                 final product = data.toList();
-//                 if (data.isEmpty) {
-//                   return const Center(
-//                     child: Text("Data not found "),
-//                   );
-//                 }
-//                 return Consumer(builder: (context, provider, _) {
-//                   return ProductBuilder(item: data);
-//                 });
-//               }
-//           }
-//           return SizedBox();
-//         });
-//   }
-// }
-
-// class ProductBuilder extends StatefulWidget {
-//   ProductBuilder({required this.item, Key? key}) : super(key: key);
-//   List<Vehicle> item;
-
-//   @override
-//   State<ProductBuilder> createState() => _ProductBuilderState();
-// }
-
-// class _ProductBuilderState extends State<ProductBuilder> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: MediaQuery.of(context).size.height * 0.6,
-//       child: ListView.builder(
-//         itemBuilder: (context, index) {
-//           final vehicle = widget.item[index];
-//           return AddVehiCard(vehicle: vehicle);
-//         },
-//         itemCount: widget.item.length,
-//       ),
-//     );
-//   }
-// }
-
-// class getproductdatastream extends StatefulWidget {
-//   const getproductdatastream({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   State<getproductdata> createState() => _getproductdatastreamstate();
-// }
-
-// class _getproductdatastreamstate extends State<getproductdata> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<List<Vehicle>>(
-//         stream: Provider.of<HomeNotifier>(context, listen: false).getProductsstream(),
-//         builder: (context, snapshot) {
-//           switch (snapshot.connectionState) {
-//             case ConnectionState.none:
-//               return const Center(child: Text('No internet connection'));
-
-//               break;
-//             case ConnectionState.waiting:
-//               return const Center(child: CircularProgressIndicator());
-//               break;
-//             case ConnectionState.active:
-//               break;
-//             case ConnectionState.done:
-//               if (snapshot.hasData) {
-//                 final data = snapshot.data!;
-//                 final product = data.toList();
-//                 if (data.isEmpty) {
-//                   return const Center(
-//                     child: Text("Data not found "),
-//                   );
-//                 }
-//                 return Consumer(builder: (context, provider, _) {
-//                   return ProductBuilderstream(item: data);
-//                 });
-//               }
-//           }
-//           return SizedBox();
-//         });
-//   }
-// }
-
-// class ProductBuilderstream extends StatefulWidget {
-//   ProductBuilderstream({required this.item, Key? key}) : super(key: key);
-//   List<Vehicle> item;
-
-//   @override
-//   State<ProductBuilder> createState() => _ProductBuilderstreamState();
-// }
-
-// class _ProductBuilderstreamState extends State<ProductBuilder> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: MediaQuery.of(context).size.height * 0.6,
-//       child:
-//       GridView.builder(
-//                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                               crossAxisCount: 3,
-//                               crossAxisSpacing: 4,
-//                               mainAxisSpacing: 4,
-//                           ),
-//                            itemCount: snapshot.data!.docs.length,
-//                             itemBuilder: (context,index){
-//                             DocumentSnapshot firtsAid=snapshot.data!.docs[index];
-//                               return AddVehiCard(vehicle: vehicle);
-
-//       // ListView.builder(
-//       //   itemBuilder: (context, index) {
-//       //     final vehicle = widget.item[index];
-//       //     return AddVehiCard(vehicle: vehicle);
-//          },
-
-//        ),
-//     );
-//   }
-// }

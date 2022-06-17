@@ -86,11 +86,6 @@ class _BodyState extends State<Body> {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  //Navigator.push(
-                  // context,
-                  // MaterialPageRoute(
-                  //   builder: (context) => ResetPassword(),
-                  // ));
                   setState(() {
                     resetPassword(forgetemailController.text);
                     showDialog(

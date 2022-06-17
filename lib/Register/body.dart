@@ -272,12 +272,6 @@ class Body extends StatelessWidget {
                       child: TextFormField(
                         textAlign: TextAlign.start,
                         controller: password,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return "Please Enter Password";
-                          }
-                          return null;
-                        },
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -309,16 +303,7 @@ class Body extends StatelessWidget {
                     height: ScreenUtils.screenheight(context) * 0.08,
                     onSuccess: () {
                       print("MATCHED");
-                      // ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                      //     content: new Text("Password is matched"))
-
-                      //  );
                     },
-                    // onFail: () {
-                    //   print("NOT MATCHED");
-                    //   ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-                    //       content: new Text("Password is Incorrect")));
-                    // }
                   ),
                 ),
               ),

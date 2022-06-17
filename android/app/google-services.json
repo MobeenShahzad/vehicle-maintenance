@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "748109819180",
-    "project_id": "vehiman-32321",
-    "storage_bucket": "vehiman-32321.appspot.com"
+    "project_number": "414339333412",
+    "project_id": "vehiclamaintenance",
+    "storage_bucket": "vehiclamaintenance.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:748109819180:android:d3a56df844d53a60cf1089",
+        "mobilesdk_app_id": "1:414339333412:android:5220144bf6f2d7ba8707b1",
         "android_client_info": {
-          "package_name": "com.example.vehiclemaintenance"
+          "package_name": "com.haztech.vehiclemaintenance"
         }
       },
       "oauth_client": [
         {
-          "client_id": "748109819180-irbtg01s52je9avl63af9ch51oifbsca.apps.googleusercontent.com",
+          "client_id": "414339333412-na1vi2h7k0oc2fiau2ep5979b9efmf9p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBaIWw9dA3--GrI35uX7SsVGc_bOkgInw4"
+          "current_key": "AIzaSyD1Ns00Q_HVWGqVw0MJGb5Hjdin4Npq9t4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "748109819180-irbtg01s52je9avl63af9ch51oifbsca.apps.googleusercontent.com",
+              "client_id": "414339333412-na1vi2h7k0oc2fiau2ep5979b9efmf9p.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

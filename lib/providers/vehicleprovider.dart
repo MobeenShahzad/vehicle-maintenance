@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:vehiclemaintenance/Maintenance/maintenance.dart';
 import 'package:vehiclemaintenance/models/app_maintennace.dart';
 import 'package:vehiclemaintenance/models/app_vehicle.dart';
@@ -63,6 +64,7 @@ class HomeNotifier with ChangeNotifier {
         uid: uid,
         id: "",
         status: "",
+        sort_id: "",
         trip: "0");
 
     await _network.uploadMaintenance(context, maintenance);
@@ -71,10 +73,9 @@ class HomeNotifier with ChangeNotifier {
   Future<List<Vehicle>> getVehicles() async => await _network.getVehicles();
   Future<List<MaintenanceModel>> getMaintenance() async =>
       await _network.getMaintenance();
-
-  //   Stream<List<Vehicle>> getProductsstream() {
-  //   return  _network.getProductsstream();
-
-  // }
-
+  void getmaindata(date, km) {
+    String dateget = date;
+    String kmget = km;
+    notifyListeners();
+  }
 }

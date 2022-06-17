@@ -1,23 +1,4 @@
-// import 'package:flutter/material.dart';
-// import 'package:vehiclemaintenance/addVehical/components/body.dart';
-
-// class AddNewVehical extends StatefulWidget {
-//   const AddNewVehical({Key? key}) : super(key: key);
-
-//   @override
-//   State<AddNewVehical> createState() => _AddNewVehicalState();
-
-// class _AddNewVehicalState extends State<AddNewVehical> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(
-//       resizeToAvoidBottomInset: true,
-//       body: body(),
-//     );
-//   }
-// }
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,11 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:vehiclemaintenance/ScreenUtils/app_colors.dart';
 import 'package:vehiclemaintenance/ScreenUtils/screenutils.dart';
-import 'package:vehiclemaintenance/addVehical/components/addvehipref.dart';
-import 'package:vehiclemaintenance/addVehical/components/vehicleformpreviewdata.dart';
-import 'package:vehiclemaintenance/components/add_vehicale_card_item.dart';
-import 'package:vehiclemaintenance/components/add_vehicale_card_item_Image.dart';
-import 'package:vehiclemaintenance/models/app_vehicle.dart';
 import 'package:vehiclemaintenance/providers/auth_provider.dart';
 import 'package:vehiclemaintenance/providers/vehicleprovider.dart';
 import 'package:vehiclemaintenance/addVehical/components/background.dart';
@@ -54,43 +30,6 @@ class _AddNewVehicalState extends State<AddNewVehical> {
   final _EngineController = TextEditingController();
   final _MeterValueController = TextEditingController();
   var Imagetext = "";
-
-  // @override
-  // void initState() {
-  //   storedata();
-
-  //   super.initState();
-  // }
-
-  // void storedata() async {
-  //   final settings = await _vehiprefdata.getSettings();
-  //   setState(() {
-  //     //image
-
-  //     //TextField
-  //     _MakerController.text = settings.maker;
-  //     _VehicleNumberController.text = settings.vehiclenumber;
-  //     _ManufactureYearController.text = settings.manufactureyear;
-  //     _ModelController.text = settings.model.toString();
-  //     _EngineController.text = settings.enginenumber;
-  //     _MeterValueController.text = settings.metervalue.toString();
-  //   });
-  // }
-
-  // void SaveData() {
-  //   final setting = Settings(
-  //     // image: "",
-  //     maker: _MakerController.text,
-  //     vehiclenumber: _VehicleNumberController.text,
-  //     manufactureyear: _ManufactureYearController.text,
-  //     model: int.parse(_ModelController.text),
-  //     //loginuser: "",
-  //     //id: "",
-  //     enginenumber: _EngineController.text,
-  //     metervalue: int.parse(_MeterValueController.text),
-  //   );
-  //   _vehiprefdata.saveSettings(setting);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +300,6 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                                       ),
                                     ),
                                   ),
-                                  // Positioned(child: Icon(icon)),
                                 ],
                               ),
                             ),
@@ -498,23 +436,13 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                                       ),
                                     ),
                                   ),
-                                  // Positioned(child: Icon(icon)),
                                 ],
                               ),
                             ),
                           ),
-                          // AddVehicalCardItem(
-                          //   title: "Model",
-                          //   onChanged: (value) {
-                          //     print(value);
-                          //   },
-                          //   hintText: "Model",
-                          // ),
+
                           PhysicalModel(
                             color: Colors.transparent,
-                            //  shadowColor: Color.fromARGB(255, 73, 231, 246),
-                            // elevation: 2.5,
-
                             borderRadius: BorderRadius.circular(20.0),
                             child: Container(
                               margin: const EdgeInsets.all(5.0),
@@ -625,7 +553,6 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                                       ),
                                     ),
                                   ),
-                                  // Positioned(child: Icon(icon)),
                                 ],
                               ),
                             ),
@@ -635,36 +562,9 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                       SizedBox(
                         height: ScreenUtils.screenheight(context) * 0.04,
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //   children: [
-                      //     AddVehicalCardItem(
-                      //       title: "Eng Number",
-                      //       onChanged: (value) {
-                      //         print(value);
-                      //       },
-                      //       hintText: "Eng number",
-                      //     ),
-                      //     AddVehicalCardItem(
-                      //       title: "Meter value",
-                      //       onChanged: (value) {
-                      //         print(value);
-                      //       },
-                      //       hintText: "Meter Value",
-                      //     ),
-                      //   ],
-                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // AddVehicalCardItem(
-                          //   title: "Manufacture Year",
-                          //   onChanged: (value) {
-                          //     print(value);
-                          //   },
-                          //   hintText: "Make year",
-                          // ),
-
                           PhysicalModel(
                             color: Colors.transparent,
                             //  shadowColor: Color.fromARGB(255, 73, 231, 246),
@@ -781,23 +681,12 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                                       ),
                                     ),
                                   ),
-                                  // Positioned(child: Icon(icon)),
                                 ],
                               ),
                             ),
                           ),
-                          // AddVehicalCardItem(
-                          //   title: "Model",
-                          //   onChanged: (value) {
-                          //     print(value);
-                          //   },
-                          //   hintText: "Model",
-                          // ),
                           PhysicalModel(
                             color: Colors.transparent,
-                            //  shadowColor: Color.fromARGB(255, 73, 231, 246),
-                            // elevation: 2.5,
-
                             borderRadius: BorderRadius.circular(20.0),
                             child: Container(
                               margin: const EdgeInsets.all(5.0),
@@ -908,14 +797,12 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                                       ),
                                     ),
                                   ),
-                                  // Positioned(child: Icon(icon)),
                                 ],
                               ),
                             ),
                           ),
                         ],
                       ),
-
                       SizedBox(
                         height: ScreenUtils.screenheight(context) * 0.03,
                       ),
@@ -923,9 +810,6 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                         padding: const EdgeInsets.only(right: 190.0),
                         child: PhysicalModel(
                           color: Colors.transparent,
-                          //  shadowColor: Color.fromARGB(255, 73, 231, 246),
-                          // elevation: 2.5,
-
                           borderRadius: BorderRadius.circular(20.0),
                           child: Container(
                             margin: const EdgeInsets.all(5.0),
@@ -989,9 +873,6 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                                         Imagetext.length > 10
                                             ? Imagetext.substring(0, 10) + '...'
                                             : Imagetext,
-                                        //  Imagetext,
-                                        // maxLines: 1,
-
                                         style: GoogleFonts.poiretOne(
                                           color: Color.fromARGB(
                                               255, 174, 169, 169),
@@ -1035,59 +916,18 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                                     ),
                                   ),
                                 ),
-
-                                // Positioned(
-                                //   bottom: 5,
-                                //   left: 120,
-                                //   child: ImageIcon(
-                                //     AssetImage("assets/upload-3.png"),
-                                //     color: Color.fromARGB(255, 122, 196, 218),
-                                //     size: ScreenUtils.screenheight(context) * 0.025,
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),
                         ),
-
-                        // AddVehicalCardItemImage(
-                        //   title: "Upload Vehicle Picture",
-                        //   onChanged: (value) {
-                        //     print(value);
-                        //   },
-                        //   hintText: "Image Name",
-                        // ),
                       ),
                       Center(
                         child: GestureDetector(
                           onTap: () {
                             if (file != null) {
                               if (_formKey.currentState!.validate()) {
-                                // SaveData();
-                                // ScaffoldMessenger.of(context)
-                                //     .showSnackBar(SnackBar(
-                                //   content: Text("File Save"),
-                                // ));
-
                                 _showDialog(context);
                               }
-                              // Provider.of<HomeNotifier>(context, listen: false)
-                              //     .uploadProduct(
-                              //   context,
-                              //   vehiclenumber: _VehicleNumberController.text,
-                              //   maker: _MakerController.text,
-                              //   manufactureyear:
-                              //       int.parse(_ManufactureYearController.text),
-                              //   model: int.parse(_ModelController.text),
-                              //   enginenumber: _EngineController.text,
-                              //   metervalue:
-                              //       int.parse(_MeterValueController.text),
-                              //   image: file!,
-                              //   loginuser: Provider.of<AuthProvider>(context,
-                              //           listen: false)
-                              //       .currentUser
-                              //       .uid,
-                              // );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text("please pick image")));
@@ -1122,34 +962,6 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                     ],
                   ),
                 ),
-                // InkWell(
-                //   onTap: () async {
-                //     final ImageSource? source =
-                //         await ScreenUtils.imagePickOptions(context);
-                //     if (source != null) {
-                //       final rawFile =
-                //           await ImagePicker().pickImage(source: source);
-                //       if (rawFile != null) {
-                //         setState(() {
-                //           file = File(rawFile.path);
-                //         });
-                //       }
-                //       // final file = File();
-                //     }
-                //   },
-                //   child: CircleAvatar(
-                //     backgroundImage: file != null ? FileImage(file!) : null,
-                //     radius: 20,
-                //     child: file != null
-                //         ? SizedBox()
-                //         : Center(
-                //             child: Icon(
-                //               Icons.camera_alt,
-                //               size: 35,
-                //             ),
-                //           ),
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -1203,14 +1015,7 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                         child: Image.file(
                           file!,
                           fit: BoxFit.cover,
-                        )
-
-                        // Image.file(
-                        // File( file != null ? FileImage(file!) : null.toString()),
-
-                        //Image(image: file != null ? FileImage(file!) : null)
-                        //file != null ? FileImage(file!) : null
-                        ),
+                        )),
                   ),
                   Row(
                     children: [
@@ -1293,14 +1098,7 @@ class _AddNewVehicalState extends State<AddNewVehical> {
                       GestureDetector(
                         onTap: () {
                           if (file != null) {
-                            if (_formKey.currentState!.validate()) {
-                              //  SaveData();
-                              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              //   content: Text("File Save"),
-                              // ));
-
-                              //   _showDialog(context);
-                            }
+                            if (_formKey.currentState!.validate()) {}
                             _showDialogmini(context);
                             Provider.of<HomeNotifier>(context, listen: false)
                                 .uploadVehicle(

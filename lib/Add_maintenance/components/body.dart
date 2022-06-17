@@ -1,28 +1,18 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_format/date_format.dart';
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vehiclemaintenance/Add_maintenance/components/background.dart';
-import 'package:vehiclemaintenance/Maintenance/maintenance.dart';
 import 'package:vehiclemaintenance/ScreenUtils/app_colors.dart';
 import 'package:vehiclemaintenance/ScreenUtils/screenutils.dart';
 import 'package:vehiclemaintenance/addVehical/AddNewVehical.dart';
-import 'package:vehiclemaintenance/components/add_maintenance_card_item.dart';
-import 'package:vehiclemaintenance/models/app_vehicle.dart';
 import 'package:vehiclemaintenance/providers/auth_provider.dart';
 import 'package:vehiclemaintenance/providers/vehicleprovider.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:vehiclemaintenance/reminder.dart';
-import 'package:scheduled_timer/scheduled_timer.dart';
 
 class Body extends StatefulWidget {
   QueryDocumentSnapshot<Object?> vehicle;
@@ -348,73 +338,6 @@ class _BodyState extends State<Body> {
                     ),
                   ],
                 ),
-                // Positioned(
-                //   top: 0,
-                //   bottom: 40,
-                //   // right: 10,
-                //   left: 8,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children: [
-                //       // Padding(
-                //       //   padding: const EdgeInsets.only(left: 25.0),
-                //       //   child: Container(
-                //       //     height: 4,
-                //       //     width: 4,
-                //       //     margin: EdgeInsets.only(right: 8.5),
-                //       //     child: Radio(
-                //       //       value: 1,
-                //       //       groupValue: id,
-                //       //       onChanged: (val) {
-                //       //         setState(() {
-                //       //           radioButtonItem = 'ONE';
-                //       //           id = 1;
-                //       //         });
-                //       //       },
-                //       //     ),
-                //       //   ),
-                //       // ),
-                //       // Text(
-                //       //   "KM When Maintenance Due",
-                //       //   style: GoogleFonts.poiretOne(
-                //       //     textStyle: TextStyle(
-                //       //         color: Color(0xffc8c9cd),
-                //       //         fontSize:
-                //       //             ScreenUtils.screenheight(context) * 0.016,
-                //       //         fontWeight: FontWeight.w700),
-                //       //   ),
-                //       // ),
-                //       // Padding(
-                //       //   padding: const EdgeInsets.only(left: 22.0),
-                //       //   child: Container(
-                //       //     height: 4,
-                //       //     width: 4,
-                //       //     margin: EdgeInsets.only(right: 8.5),
-                //       //     child: Radio(
-                //       //       value: 2,
-                //       //       groupValue: id,
-                //       //       onChanged: (val) {
-                //       //         setState(() {
-                //       //           radioButtonItem = 'TWO';
-                //       //           id = 2;
-                //       //         });
-                //       //       },
-                //       //     ),
-                //       //   ),
-                //       // ),
-                //       // Text(
-                //       //   "Maintenace Date",
-                //       //   style: GoogleFonts.poiretOne(
-                //       //     textStyle: TextStyle(
-                //       //         color: Color(0xffc8c9cd),
-                //       //         fontSize:
-                //       //             ScreenUtils.screenheight(context) * 0.016,
-                //       //         fontWeight: FontWeight.w700),
-                //       //   ),
-                //       // ),
-                //     ],
-                //   ),
-                //  ),
               ]),
             ),
             Padding(
@@ -491,12 +414,6 @@ class _BodyState extends State<Body> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // AddMaintenanceCardItem(
-                  //   title: "Tolerence by KM",
-                  //   onChanged: (value) {
-                  //     print(value);
-                  //   },
-                  // ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -558,7 +475,6 @@ class _BodyState extends State<Body> {
                       ),
                     ],
                   ),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -681,106 +597,6 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(right: 20.0),
-            //   child: Radio(
-            //     value: 1,
-            //     groupValue: id,
-            //     onChanged: (val) {
-            //       setState(() {
-            //         //  radioButtonItem = 'ONE';
-            //         id = 1;
-            //         value:
-            //         1;
-            //       });
-            //     },
-            //   ),
-            // ),
-
-            // Center(
-            //     child: InkWell(
-            //   onTap: () {
-            //     setState(() {
-            //       _value = !_value;
-            //     });
-            //   },
-            //   child: Container(
-            //     height: ScreenUtils.screenheight(context) * 0.04,
-            //     width: ScreenUtils.screenwidth(context) * 0.04,
-            //     decoration: BoxDecoration(
-            //         shape: BoxShape.circle,
-            //         color: Color.fromARGB(255, 240, 238, 238)),
-            //     child: Padding(
-            //       padding: const EdgeInsets.all(10.0),
-            //       child: _value
-            //           ? Icon(
-            //               Icons.circle,
-            //               size: 10.0,
-            //               color: Color.fromARGB(255, 91, 125, 197),
-            //             )
-            //           : Icon(
-            //               Icons.check_box_outline_blank,
-            //               size: 10.0,
-            //               color: Color.fromARGB(255, 11, 11, 12),
-            //             ),
-            //     ),
-            //   ),
-            // )),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     Container(
-            //       child: Padding(
-            //         padding: const EdgeInsets.only(left: 13.0),
-            //         child: Checkbox(
-            //           checkColor: Color.fromARGB(255, 255, 255, 255),
-
-            //           activeColor: Color.fromARGB(255, 65, 89, 186),
-            //           shape: const CircleBorder(), // Rounded Checkbox
-            //           value: checkBoxBooleanValueVariable,
-            //           onChanged: (inputValue) {
-            //             setState(() {
-            //               checkBoxBooleanValueVariable = inputValue!;
-            //             });
-            //           },
-            //         ),
-            //       ),
-            //     ),
-            //     Padding(
-            //       padding: const EdgeInsets.only(right: 0.0),
-            //       child: Container(
-            //         margin: const EdgeInsets.only(right: 20),
-            //         child: Text(
-            //           "Recurring Maintenance ",
-            //           style: GoogleFonts.poiretOne(
-            //             textStyle: TextStyle(
-            //                 color: Color(0xffc8c9cd),
-            //                 fontSize: ScreenUtils.screenheight(context) * 0.016,
-            //                 fontWeight: FontWeight.w700),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     AddMaintenanceCardItem(
-            //       title: "Days",
-            //       onChanged: (value) {
-            //         print(value);
-            //       },
-            //     ),
-            //     AddMaintenanceCardItem(
-            //       title: "KM",
-            //       onChanged: (value) {
-            //         print(value);
-            //       },
-            //     ),
-            //   ],
-            // ),
             Padding(
               padding: const EdgeInsets.all(8.0) + EdgeInsets.only(top: 8.0),
               child: Row(
@@ -789,20 +605,8 @@ class _BodyState extends State<Body> {
                   GestureDetector(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        // SaveData();
-                        // ScaffoldMessenger.of(context)
-                        //     .showSnackBar(SnackBar(
-                        //   content: Text("File Save"),
-                        // ));
-
                         _showDialog(context);
                       }
-
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const Maintenance(),
-                      //  ));
                     },
                     child: Container(
                       height: ScreenUtils.screenheight(context) * 0.04,
@@ -824,37 +628,6 @@ class _BodyState extends State<Body> {
                       )),
                     ),
                   ),
-                  // SizedBox(
-                  //   width: ScreenUtils.screenwidth(context) * 0.03,
-                  // ),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (context) => const Maintenance(),
-                  //         ));
-                  //   },
-                  //   child: Container(
-                  //     height: ScreenUtils.screenheight(context) * 0.04,
-                  //     width: ScreenUtils.screenwidth(context) * 0.27,
-                  //     decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(5.0),
-                  //       color: Color(0xff4a4f60),
-                  //     ),
-                  //     child: Center(
-                  //         child: Text(
-                  //       'Cancel',
-                  //       style: GoogleFonts.poiretOne(
-                  //         textStyle: TextStyle(
-                  //             color: AppColors.ktextColorWhite,
-                  //             fontSize:
-                  //                 ScreenUtils.screenwidth(context) * 0.038,
-                  //             fontWeight: FontWeight.bold),
-                  //       ),
-                  //     )),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -887,25 +660,6 @@ class _BodyState extends State<Body> {
               "/" +
               date.year.toString();
         });
-
-        //schedule a notification
-        //     await _notificationService.scheduleNotifications(
-        // id: widget.id,
-        // title: widget.title,
-        // body: widget.content,
-        // time: fullDate);
-        //           switch (dropdownselectedMaintenance) {
-        //   case 'Brake Oil':
-        //     // do something
-        //     break;
-        //      case 'Gear Oil':
-        //     // do something
-        //     break;
-        //      case 'Radiator Water':
-        //     // do something
-        //     break;
-
-        // }
       }
       return DateTimeField.combine(date, time);
     } else {
@@ -913,51 +667,6 @@ class _BodyState extends State<Body> {
       print(selectedDate);
     }
   }
-
-  // DateTime? dateRange;
-  // //  DateTime dateRange;
-  // DateTime? dateRange2;
-  // // DateTime dateRange2;
-  // String getFrom() {
-  //   if (dateRange == null) {
-  //     return 'Start';
-  //   } else {
-  //     return DateFormat('yyyy-MM-dd').format(dateRange!);
-  //   }
-  // }
-
-  // Future pickDateRange(BuildContext context) async {
-  //   final initialDate = DateTime.now();
-  //   final newDate = await showDatePicker(
-  //     context: context,
-  //     initialDate: initialDate,
-  //     firstDate: DateTime(DateTime.now().year - 5),
-  //     lastDate: DateTime(DateTime.now().year + 5),
-  //     builder: (context, child) {
-  //       return Theme(
-  //         data: Theme.of(context).copyWith(
-  //           colorScheme: ColorScheme.light(
-  //             primary: Color(0xff4a4f60), // header background color
-  //             onPrimary:
-  //                 Color.fromARGB(255, 181, 171, 171), // header text color
-  //             onSurface: Colors.black, // body text color
-  //           ),
-  //           textButtonTheme: TextButtonThemeData(
-  //             style: TextButton.styleFrom(
-  //               primary: Color(0xff4a4f60), // button text color
-  //             ),
-  //           ),
-  //         ),
-  //         child: child!,
-  //       );
-  //     },
-  //   );
-  //   if (newDate == null) return;
-  //   setState(() {
-  //     dateRange = newDate;
-  //     print("$newDate");
-  //   });
-  // }
 
   void _showDialog(BuildContext context) {
     showDialog(
@@ -1083,27 +792,7 @@ class _BodyState extends State<Body> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            //  SaveData();
-                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            //   content: Text("File Save"),
-                            // ));
-
-                            //   _showDialog(context);
-                          }
-                          // await _notificationService.scheduleNotifications(
-                          //   id: 1,
-                          //   title: "Maintenance",
-                          //   body: "It's time to maintenance 1",
-                          //   time: fullDate,
-                          // );
-
-                          // await _notificationService.scheduleNotifications(
-                          //   id: 1,
-                          //   title: "Maintenance",
-                          //   body: "It's time to maintenance 1",
-                          //   time: fullDate,
-                          // );
+                          if (_formKey.currentState!.validate()) {}
 
                           print(dropdownselectedMaintenance);
                           switch (dropdownselectedMaintenance) {
@@ -1195,27 +884,7 @@ class _BodyState extends State<Body> {
                                 time: fullDate.day +
                                     int.parse(_TolbydayController.text),
                               );
-                              // fullDate.add(Duration(
-                              //   days: 7,
-                              // ));
-                              // await _notificationService.scheduleNotifications(
-                              //   id: 1,
-                              //   title: "Battery Maintenance ",
-                              //   body: "It's time to Check Battery",
-                              //   time: fullDate,
-                              // );
-                              // await _notificationService.scheduleNotifications(
-                              //   id: 2,
-                              //   title: "Battery Maintenance ",
-                              //   body: "It's time to Check Battery",
-                              //   time: fullDate.add(
-                              //     Duration(
-                              //       days: fullDate.day +
-                              //           int.parse(_TolbydayController.text),
-                              //     ),
-                              //   ),
-                              // );
-                              // do something
+
                               break;
 
                             case 'Ev Checking':
@@ -1376,102 +1045,9 @@ class _BodyState extends State<Body> {
                                     int.parse(_TolbydayController.text),
                               );
 
-                              // do something else
-                              // Timer.periodic(
-                              //   Duration(seconds: 1),
-                              //   await _notificationService.dailyNotifications(
-                              //     id: Random(),
-                              //     title: "Water Level Maintenance",
-                              //     body: "It's time to check water level",
-                              //     time: fullDate,
-                              //   ),
-                              // );
-
-                              //
-
-                              // Timer timer = Timer.periodic(
-                              //     Duration(seconds: 1),
-                              //     (time) async => await _notificationService
-                              //         .dailyNotifications(
-                              //             id: 2,
-                              //             title: "Water Level Maintenance",
-                              //             body:
-                              //                 "It's time to check water level",
-                              //             time: fullDate
-                              //             //  fullDate.add(
-                              //             //   Duration(
-                              //             //     days: fullDate.day +
-                              //             //         int.parse(_TolbydayController.text),
-                              //             //   ),
-                              //             // ),
-                              //             ));
-
-                              // await _notificationService.dailyNotifications(
-                              //     id: 2,
-                              //     title: "Water Level Maintenance",
-                              //     body: "It's time to check water level",
-                              //     time: fullDate
-                              //     //  fullDate.add(
-                              //     //   Duration(
-                              //     //     days: fullDate.day +
-                              //     //         int.parse(_TolbydayController.text),
-                              //     //   ),
-                              //     // ),
-                              //     );
-                              // print("reminder 2");
-
-                              // _notification2() {
-                              //   return FutureBuilder(
-                              //     future: LongTimeNoNotification.findBy(
-                              //         'notification_2'),
-                              //     builder: (context,
-                              //         AsyncSnapshot<LongTimeNoNotification?>
-                              //             snapshot) {
-                              //       if (snapshot.data == null ||
-                              //           snapshot.data!.shouldNotify()) {
-                              //         return Card(
-                              //           child: ListTile(
-                              //             title: const Text('Notification2'),
-                              //             subtitle: const Text(
-                              //                 'Display again in 7 days.'),
-                              //             trailing: IconButton(
-                              //               icon: const Icon(Icons.clear),
-                              //               onPressed: () {
-                              //                 setState(() {
-                              //                   LongTimeNoNotification
-                              //                       .setDuration(
-                              //                           id: 'notification_2',
-                              //                           duration:
-                              //                               const Duration(
-                              //                                   seconds: 10));
-                              //                 });
-                              //               },
-                              //             ),
-                              //           ),
-                              //         );
-                              //       } else {
-                              //         return Container();
-                              //       }
-                              //     },
-                              //   );
-                              // }
-
                               break;
                           }
                           print(_TolbydayController);
-
-                          // if (dropdownselectedMaintenance == 'Water Level') {
-                          //   await _notificationService.scheduleNotifications(
-                          //       id: 1,
-                          //       title: "Water Level Maintenance",
-                          //       body: "It's time to check water level",
-                          //       time: fullDate.add(Duration(
-                          //         days: fullDate.day +
-                          //             int.parse(_TolbydayController.text),
-                          //       )));
-                          // } else {}
-
-                          //TODO
 
                           _showDialogmini(context);
                           Provider.of<HomeNotifier>(context, listen: false)
@@ -1485,12 +1061,8 @@ class _BodyState extends State<Body> {
                             tolbyday: _TolbydayController.text,
                             tolbykm: _TolerenceByKilometer.text,
                             desc: _DescController.text,
-
                             maintenance_uniquie_id:
                                 widget.vehicle["maintenance_uniquie_id"],
-                            // FirebaseFirestore.instance
-                            //     .collection("vehicles")
-                            //     .toString(),
                             uid: Provider.of<AuthProvider>(context,
                                     listen: false)
                                 .currentUser
@@ -1553,97 +1125,6 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               ),
-
-              //     Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: [
-              //         GestureDetector(
-              //           onTap: () {
-              //             if (file != null) {
-              //               if (_formKey.currentState!.validate()) {
-              //                 //  SaveData();
-              //                 // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //                 //   content: Text("File Save"),
-              //                 // ));
-
-              //                 //   _showDialog(context);
-              //               }
-              //               _showDialogmini(context);
-              //               Provider.of<HomeNotifier>(context, listen: false)
-              //                   .uploadVehicle(
-              //                 context,
-              //                 vehiclenumber: _VehicleNumberController.text,
-              //                 maker: _MakerController.text,
-              //                 manufactureyear:
-              //                     int.parse(_ManufactureYearController.text),
-              //                 model: int.parse(_ModelController.text),
-              //                 enginenumber: _EngineController.text,
-              //                 metervalue: int.parse(_MeterValueController.text),
-              //                 image: file!,
-              //                 loginuser: Provider.of<AuthProvider>(context,
-              //                         listen: false)
-              //                     .currentUser
-              //                     .uid,
-              //               );
-              //             } else {
-              //               ScaffoldMessenger.of(context).showSnackBar(
-              //                   SnackBar(content: Text("please pick image")));
-              //             }
-              //           },
-              //           child: Padding(
-              //             padding: const EdgeInsets.only(
-              //                 top: 15.0, right: 0, left: 60),
-              //             child: Container(
-              //               height: ScreenUtils.screenheight(context) * 0.04,
-              //               width: ScreenUtils.screenwidth(context) * 0.27,
-              //               decoration: BoxDecoration(
-              //                 borderRadius: BorderRadius.circular(15.0),
-              //                 color: Color(0xff4a4f60),
-              //               ),
-              //               child: Center(
-              //                   child: Text(
-              //                 'Save',
-              //                 style: GoogleFonts.poiretOne(
-              //                   textStyle: TextStyle(
-              //                       color: AppColors.ktextColorWhite,
-              //                       fontSize: ScreenUtils.screenwidth(context) *
-              //                           0.038,
-              //                       fontWeight: FontWeight.bold),
-              //                 ),
-              //               )),
-              //             ),
-              //           ),
-              //         ),
-              //         GestureDetector(
-              //           onTap: () {
-              //             Navigator.of(context).pop();
-              //           },
-              //           child: Padding(
-              //             padding: const EdgeInsets.only(
-              //                 top: 15.0, right: 60, left: 0),
-              //             child: Container(
-              //               height: ScreenUtils.screenheight(context) * 0.04,
-              //               width: ScreenUtils.screenwidth(context) * 0.27,
-              //               decoration: BoxDecoration(
-              //                 borderRadius: BorderRadius.circular(15.0),
-              //                 color: Color(0xff4a4f60),
-              //               ),
-              //               child: Center(
-              //                   child: Text(
-              //                 'Cancel',
-              //                 style: GoogleFonts.poiretOne(
-              //                   textStyle: TextStyle(
-              //                       color: AppColors.ktextColorWhite,
-              //                       fontSize: ScreenUtils.screenwidth(context) *
-              //                           0.038,
-              //                       fontWeight: FontWeight.bold),
-              //                 ),
-              //               )),
-              //             ),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
             ),
           );
         });

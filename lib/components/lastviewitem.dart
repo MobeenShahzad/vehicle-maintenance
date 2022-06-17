@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vehiclemaintenance/ScreenUtils/app_colors.dart';
 import 'package:vehiclemaintenance/ScreenUtils/screenutils.dart';
+import 'package:vehiclemaintenance/globals.dart';
 import 'package:vehiclemaintenance/models/app_vehicle.dart';
 
 class LastViewVehiCard extends StatelessWidget {
   LastViewVehiCard({
     Key? key,
     required this.vehicle,
+    required this.home_km,
+    required this.home_date,
   }) : super(key: key);
 
   QueryDocumentSnapshot<Object?> vehicle;
+  String home_km;
+  String home_date;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -42,7 +47,7 @@ class LastViewVehiCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Miant by Date:    ',
+                      'Maker: ${vehicle["maker"]}   ',
                       style: GoogleFonts.poiretOne(
                         textStyle: TextStyle(
                             color: AppColors.ktextColorWhite,
@@ -51,7 +56,7 @@ class LastViewVehiCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Miant by Km:   ${vehicle['metervalue']}',
+                      'Generation:   ${vehicle["model"]}',
                       style: GoogleFonts.poiretOne(
                         textStyle: TextStyle(
                             color: AppColors.ktextColorWhite,

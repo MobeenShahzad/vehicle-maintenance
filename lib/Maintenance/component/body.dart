@@ -5,21 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:vehiclemaintenance/Add_maintenance/AddNewMaintenace.dart';
 import 'package:vehiclemaintenance/Edit_maintenance/EditMaintenance.dart';
 import 'package:vehiclemaintenance/Maintenance/component/background.dart';
-import 'package:vehiclemaintenance/Maintenance/maintenance.dart';
 import 'package:vehiclemaintenance/ScreenUtils/app_colors.dart';
 import 'package:vehiclemaintenance/ScreenUtils/screenutils.dart';
 import 'package:vehiclemaintenance/addVehical/AddNewVehical.dart';
-import 'package:vehiclemaintenance/components/addVehiCard.dart';
 import 'package:vehiclemaintenance/components/maintenence_item_text.dart';
 import 'package:vehiclemaintenance/globals.dart';
-import 'package:vehiclemaintenance/models/app_maintennace.dart';
-import 'package:vehiclemaintenance/models/app_vehicle.dart';
-import 'package:vehiclemaintenance/providers/vehicleprovider.dart';
 import 'package:vehiclemaintenance/updatemeter/updatemeter.dart';
 import 'package:vehiclemaintenance/globals.dart' as globals;
 
@@ -38,6 +32,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool swapbt = false;
   bool isObsecure = true;
+
   // @override
   // void initState() {
   //   Get.to(Maintenance());
@@ -108,6 +103,7 @@ class _BodyState extends State<Body> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot main_items = snapshot.data!.docs[index];
+                      tripvalue = main_items["trip"];
                       return Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -835,6 +831,14 @@ class _BodyState extends State<Body> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot main_items = snapshot.data!.docs[index];
+                      DocumentSnapshot main_items1 = snapshot.data!.docs[0];
+                      print("km");
+                      print(main_items1['km']);
+                      print("maintenacedate");
+                      print(main_items1['maintenacedate']);
+                      maintenance_km = main_items1['km'];
+                      maintenance_date = main_items1['maintenacedate'];
+
                       return Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

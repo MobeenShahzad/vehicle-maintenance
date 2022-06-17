@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vehiclemaintenance">
+    package="com.haztech.vehiclemaintenance">
    <application
         android:label="vehiclemaintenance"
         android:name="${applicationName}"

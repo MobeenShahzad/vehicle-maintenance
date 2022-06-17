@@ -89,28 +89,6 @@ class Network {
     }
   }
 
-  // Future<void> uploadProduct(Product product, File productImage) async {
-  //   final id = DateTime.now().millisecondsSinceEpoch.toString();
-  //   product.id = id;
-  //   final productImageUrl = await uploadImage(
-  //       image: productImage,
-  //       reference: "products/${product.sellerId}/${product.id}");
-  //   product.image = productImageUrl;
-  //   await firestore.collection("products").doc(id).set(product.toJson());
-  // }
-
-  // Future<String> uploadImage(
-  //     {required File image, required String reference}) async {
-  //   final storageReference = storage.ref(reference);
-
-  //   TaskSnapshot uploadTask = await storageReference.putFile(image);
-  //   final String url = await uploadTask.ref.getDownloadURL();
-
-  //   print(url);
-
-  //   return url;
-  // }
-
   Future<void> uploadVehicle(
       BuildContext context, Vehicle vehicle, File productImage) async {
     final firebaseUser = firebaseAuth.currentUser;
@@ -296,33 +274,8 @@ class Network {
         .get();
     final int documents = qSnap.docs.length;
 
-    // final int documents = await FirebaseFirestore.instance
-    //     .collection('vehicles')
-    //     .where("loginuser", isEqualTo: firebaseUser?.uid)
-    //     .snapshots()
-    //     .length;
-
-    // print(documents);
-
     print(documents);
     if (documents <= 50) {
-      //  final id = DateTime.now().millisecondsSinceEpoch.toString();
-      //  maintenance.usid = id;
-      // read
-
-      // var qid;
-      // qid = maintenanceid;
-
-      // final prefs = await SharedPreferences.getInstance();
-      // read
-      // final myfid = prefs.getString('qid_key') ?? "";
-      // write
-      //prefs.setString('qid_key', myfid);
-
-      //print(myfid.toString());
-
-      // qid = myfid;
-      //  print(myfid.toString());
       const _chars =
           'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
       Random _rnd = Random();
@@ -334,6 +287,7 @@ class Network {
       maintenance.id = randomString;
       maintenance.status = "incomplete";
       maintenance.trip = "0";
+      maintenance.sort_id = DateTime.now().millisecondsSinceEpoch.toString();
       statusq = maintenance.status;
       await firestore
           .collection("maintenance")
@@ -372,39 +326,15 @@ class Network {
     return url;
   }
 
-//   Future<List<Vehicle>> getProducts() async {
-//     try {
-//       final querySnapshot = await firestore.collection("vehicles").get();
-//       print(querySnapshot.size);
-//       List<Vehicle> vehicles = List.empty(growable: true);
-
-//       querySnapshot.docs.forEach((doc) {
-//         final data = doc.data();
-
-//         final product = Vehicle.fromJson(data);
-//         vehicles.add(product);
-//       });
-//       return vehicles;
-//     } on FirebaseException catch (error, stk) {
-//       throw error;
-//     }
-//   }
-// }
-
   Future<List<Vehicle>> getVehicles() async {
     try {
       final firebaseUser = firebaseAuth.currentUser;
       final querySnapshot = await firestore
           .collection("vehicles")
-          //  .where("loginuser", isEqualTo: firebaseAuth.currentUser)
-          //   .where("loginuser", isEqualTo: firebaseUser?.uid)
-          //.orderBy("id")
-
           .where("loginuser", isEqualTo: firebaseUser?.uid)
           .orderBy('id', descending: true)
           .get();
 
-      // where("population", ">", 100000), orderBy("population"), limit(2)
       List<Vehicle> vehicles = List.empty(growable: true);
 
       querySnapshot.docs.forEach((doc) {
@@ -428,18 +358,9 @@ class Network {
       final firebaseUser = firebaseAuth.currentUser;
       final querySnapshot = await firestore
           .collection("maintenance")
-          //  .where("loginuser", isEqualTo: firebaseAuth.currentUser)
-          //   .where("loginuser", isEqualTo: firebaseUser?.uid)
-
           .where("uid", isEqualTo: firebaseUser?.uid)
           .where('maintenance_uniquie_id', isEqualTo: a)
-          // /   .orderBy('maintenance_uniquie_id', descending: true)
           .get();
-
-      //   String a = "maintenance_uniquie_id";
-      // print("this is  maintennace uniquie id ${a}");
-
-      // where("population", ">", 100000), orderBy("population"), limit(2)
       List<MaintenanceModel> maintenances = List.empty(growable: true);
 
       querySnapshot.docs.forEach((doc) {
@@ -454,50 +375,4 @@ class Network {
       throw error;
     }
   }
-
-  // Stream<List<Vehicle>> getProductsstream() {
-  //   try {
-  //      final firebaseUser = firebaseAuth.currentUser;
-  //     final querySnapshot =
-  //         firestore.collection('vehicles')
-  //         .where("loginuser", isEqualTo: firebaseUser?.uid)
-  //      .orderBy('id', descending: true)
-  //         .snapshots().listen((event) {
-  //       for (var element in event.docChanges) {
-  //         List<Vehicle> vehicles = List.empty(growable: true);
-  //         querySnapshot.docs.forEach((doc) {
-  //           final data = doc.data();
-  //           final vehicle = Vehicle.fromJson(data);
-  //           vehicles.add(vehicle);
-
-  //           return vehicles;
-  //         });
-  //       }
-  //     });
-  //   } on FirebaseException catch (error, stk) {
-  //     //
-  //     throw error;
-  //   }
-  // }
-  // final firebaseUser = firebaseAuth.currentUser;
-  // final querySnapshot =firestore
-  //     .collection("vehicles")
-  //     .where("loginuser", isEqualTo: firebaseUser?.uid)
-  //     .orderBy('id', descending: true)
-  //     .get();
-
-  //     List<Vehicle> vehicles = List.empty(growable: true);
-
-  //     querySnapshot.docs.forEach((doc) {
-  //       final data = doc.data();
-
-  //       final vehicle = Vehicle.fromJson(data);
-  //       vehicles.add(vehicle);
-  //     });
-  //     return vehicles;
-  //   } on FirebaseException catch (error, stk) {
-  //     //
-  //     throw error;
-  //   }
-  // }
 }

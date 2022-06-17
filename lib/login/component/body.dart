@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:vehiclemaintenance/Home/home.dart';
 import 'package:vehiclemaintenance/Register/register_screen.dart';
 import 'package:vehiclemaintenance/ScreenUtils/app_colors.dart';
 import 'package:vehiclemaintenance/ScreenUtils/screenutils.dart';
 import 'package:vehiclemaintenance/forgetpassword/forgotPassword.dart';
 import 'package:vehiclemaintenance/login/component/background.dart';
 import 'package:vehiclemaintenance/providers/auth_provider.dart';
-import 'package:vehiclemaintenance/providers/vehicleprovider.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -64,12 +61,12 @@ class _BodyState extends State<Body> {
                       ),
                       fillColor: Color.fromARGB(255, 255, 253, 251),
                       filled: true,
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         // width: 0.0 produces a thin "hairline" border
                         borderRadius: BorderRadius.all(Radius.circular(90.0)),
                         borderSide: BorderSide.none,
                       ),
-                      prefixIcon: Padding(
+                      prefixIcon: const Padding(
                         padding: EdgeInsets.only(
                           bottom: 8.0,
                         ),

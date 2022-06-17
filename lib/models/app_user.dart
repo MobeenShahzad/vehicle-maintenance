@@ -24,11 +24,6 @@ class AppUser {
         email: json['email'],
         username: json['username'],
         phone: json['phone'],
-        // type: json['type'] == "buyer"
-        //     ? UserType.buyer
-        //    : json['type'] == null
-        //        ? null
-        //        : UserType.seller
       );
   Map<String, dynamic> toJson() => {
         'uid': uid,
@@ -36,7 +31,5 @@ class AppUser {
         'email': email,
         'username': username,
         'phone': phone,
-
-        //  "type": type == UserType.buyer ? "buyer" : "seller"
       };
 }

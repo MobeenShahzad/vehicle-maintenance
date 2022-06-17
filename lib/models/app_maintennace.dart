@@ -14,6 +14,7 @@ class MaintenanceModel {
     required this.id,
     required this.status,
     required this.trip,
+    required this.sort_id,
   });
   String id;
   String miantenancetype;
@@ -27,6 +28,7 @@ class MaintenanceModel {
   String maintenance_uniquie_id;
   String status;
   String trip;
+  String sort_id;
 
   factory MaintenanceModel.fromJson(Map<String, dynamic> json) =>
       MaintenanceModel(
@@ -41,6 +43,7 @@ class MaintenanceModel {
           uid: json["uid"],
           id: json["id"],
           status: json["status"],
+          sort_id: json["sort_id"],
           trip: json["trip"]);
 
   Map<String, dynamic> toJson() => {
@@ -55,6 +58,7 @@ class MaintenanceModel {
         "uid": uid,
         "id": id,
         "status": status,
-        "trip": trip
+        "trip": trip,
+        "sort_id": sort_id
       };
 }

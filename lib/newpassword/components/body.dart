@@ -110,13 +110,7 @@ class Body extends StatelessWidget {
           ),
           Center(
             child: GestureDetector(
-              onTap: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => const UpdateMeter(),
-                //     ));
-              },
+              onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Container(
